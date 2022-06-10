@@ -1,11 +1,16 @@
-
-*{
-    margin:0;
-    padding:0;
-}
-
 #titulo{
     font-size: xx-large;
     font-family: Roboto;
     text-align: center;
+}
+
+#subtitulo{
+    font-size: large;
+    font-family: Roboto;
+    text-align: left;
+    text-decoration: underline;
+}
+
+#cargaCliente{
+    margin: 40px;
 }

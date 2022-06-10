@@ -18,6 +18,34 @@
 </head>
 <body>
     <h1 id="titulo">Calculadora Monotributo</h1>
+    <h2 id="subtitulo"> Ingrese Cliente para evaluar</h2>
+    <section id="cargaCliente">
+      <form>
+        <div class="mb-3">
+          <label for="razonsocial" class="form-label">Razón Social</label>
+          <input type="text" class="form-control" id="razonsocial">
+        </div>
+        <div class="mb-3">
+          <label for="domicilio" class="form-label">Domicilio</label>
+          <input type="text" class="form-control" id="domicilio">
+        </div>
+        <div class="mb-3">
+          <label for="cuit" class="form-label">CUIT</label>
+          <input type="text" class="form-control" id="cuit">
+        </div>
+        <div class="mb-3">
+          <label for="ingresoAnualCliente" class="form-label">Ingresos Anuales</label>
+          <input type="text" class="form-control" id="ingresoAnualCliente">
+        </div>
+        <div class="mb-3">
+          <label for="categoriaCalculada" class="form-label">Categoría Calculada</label>
+          <input type="text" id="categoriaCalculada" class="form-control" placeholder="">
+        </div>
+      </form>
+      <form>
+          <button id="btnCalcular" type="submit" class="btn btn-primary">Calcular</button>
+      </form>
+    </section>
     <section id="grillaMonotributo">
         <div class="container">
             <div class="row">
