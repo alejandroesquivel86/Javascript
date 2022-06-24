@@ -5,31 +5,41 @@ let botoncalcular = document.getElementById("btnCalcular");
 
 botoncalcular.addEventListener("click",calcularCategoria)
 
+document.getElementById("categoriaCalculada").value = categoriaCliente;
+
 function calcularCategoria(){      
-        if(ingresos.value != 0){   
+        if((parseInt(ingresos.value)) != 0){   
             switch (true) {
-                case (ingresos.value < 466201):
+                case ((parseInt(ingresos.value)) < 466201):
                     console.log("Categoría A");
-                    categoriaCliente = "A";
-                    document.getElementById("categoriaCalculada").value = "A";
+                    document.getElementById("categoriaCalculada").value = "A";                                                       
+                    alert   ("Categ A"); 
+                    return categoriaCliente = "A";     
                     break;
-                case (466202 < ingresos.value)&&(ingresos.value < 693002):                
+                case (466202 < (parseInt(ingresos.value)))&&((parseInt(ingresos.value)) < 693002):                
                         console.log("Categoría B");
-                        categoriaCliente = "B";
                         document.getElementById("categoriaCalculada").value = "B";
+                        alert   ("Categ B");  
+                        return categoriaCliente = "B";                                                
                         break;
-                case (693003 < ingresos.value)&&(ingresos.value < 970203): 
+                case (693003 < (parseInt(ingresos.value)))&&((parseInt(ingresos.value)) < 970203): 
                     console.log("Categoría C");
-                    categoriaCliente = "C";
-                    document.getElementById("categoriaCalculada").value = "C";
+                    document.getElementById("categoriaCalculada").value = "C";                                     
+                    alert   ("Categ C");  
+                    return categoriaCliente = "C";   
                     break;
                 default:                    
-                    categoriaCliente = "'Fuera Monotributo'";                    
+                    document.getElementById("categoriaCalculada").value = "Fuera";                                       
+                    console.log("Fuera de Monotributo");       
+                    alert   ("Fuera de Monotributo");  
+                    return categoriaCliente = "'Fuera Monotributo'";  
                     break;
             }  
         } else {
-            alert("Ingresar un valor");            
-        };
+            document.getElementById("categoriaCalculada").value = "No Calculado";
+            alert("Ingresar un valor");       
+            return categoriaCliente = "'No Calculado'";                                 
+        };        
     };
 
 //CARGA DE CLIENTES
@@ -111,9 +121,17 @@ localStorage.setItem("cliente",clienteSeteado);
 
 botonRecordar.onclick=()=>{
     if(inputRazonSocial.value !==""){
-        clienteSeteado = inputRazonSocial.value
+        clienteSeteado = inputRazonSocial.value            
     }
+    
+    Toastify({
+        text: "Probando toast!",
+        duration: 3000,
+        gravity:'top'
+    }).showToast();
+
     localStorage.setItem("cliente",clienteSeteado);
+    
 }
 
 
