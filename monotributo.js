@@ -120,20 +120,44 @@ let botonRecordar = document.getElementById("btnRecordarCliente");
 localStorage.setItem("cliente",clienteSeteado);
 
 botonRecordar.onclick=()=>{
+    Swal.fire('Any fool can use a computer');
     if(inputRazonSocial.value !==""){
-        clienteSeteado = inputRazonSocial.value            
+        clienteSeteado = inputRazonSocial.value                    
     }
-    
-    Toastify({
-        text: "Probando toast!",
-        duration: 3000,
-        gravity:'top'
-    }).showToast();
-
-    localStorage.setItem("cliente",clienteSeteado);
-    
+    localStorage.setItem("cliente",clienteSeteado);    
 }
 
+//GETJSON
+function obtenerJson(){
+    const URLJSON="usuarios.json";
+    //agregamos un boton
+    document.querySelector("#usuarios").innerHTML='<button id="cargarUsuarios"class="btn btn-secondary" >Ver Usuarios</button>';
+    //evento para el boton
+    document.querySelector("#cargarUsuarios").onclick=()=>{
+        fetch(URLJSON)
+            .then((respuesta)=>respuesta.json())
+            .then((data)=>{
+                console.log(data);
+                let usuariosSys=data.usuarios;
+                for(const usus of usuariosSys){
+                    document.querySelector("#usuarios").innerHTML+=`
+                    <div>
+                        <h3>${usus.nombre}</h3>
+                        <p>${usus.edad}</p>
+                    </div>
+                    `;
+                }
+            })
+            .catch((error)=>{
+                console.log("Error en el archivo: "+error);
+            })
+            .finally(()=>{
+                console.log("GRACIAS POR VENIR")
+            })
+    }
+}
+
+obtenerJson();
 
 
 
