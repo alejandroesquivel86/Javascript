@@ -6,95 +6,218 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <link rel="shortcut icon" href="Imagenes/favicon.ico" type="image/x-icon">
     <title>EstudioPresasEsquivel</title>
+    <!-- Clippy -->
+    <link rel="stylesheet" type="text/css" href="../EntregableGIT/src/clippy.css" media="all">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Poppins:wght@300;400;500&family=Barlow:wght@100;300&family=Open+Sans:ital,wght@0,300;1,300&family=IM+Fell+French+Canon:ital@1&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Poppins:wght@300;400;500&family=Barlow:wght@100;300&family=Open+Sans:ital,wght@0,300;1,300&family=Raleway:wght@500&family=IM+Fell+French+Canon:ital@1&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- css -->
     <link rel="stylesheet" href="Estilos/estilos.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4@4/bootstrap-4.css" rel="stylesheet">
 </head>
 <body>
-    <h1 id="titulo">CALCULADORA DE RECATEGORIZACIÓN DE MONOTRIBUTO</h1>
-    <h2 id="subtitulo"> Ingrese Cliente para evaluar</h2>
-    <section id="cargaCliente">
-      <form>
-        <div class="mb-3">
-          <label for="razonsocial" class="form-label">Razón Social</label>
-          <input type="text" class="form-control" id="razonsocial">
-        </div>
-        <div class="mb-3">
-          <label for="domicilio" class="form-label">Domicilio</label>
-          <input type="text" class="form-control" id="domicilio">
-        </div>
-        <div class="mb-3">
-          <label for="cuit" class="form-label">CUIT</label>
-          <input type="text" class="form-control" id="cuit">
-        </div>
-        <div>
-          <button id="btnRecordarCliente" class="btn btn-primary" type="submit">Recordar Cliente</button>
-        </div>
-        <div class="mb-3">
-          <label for="ingresoAnualCliente" class="form-label">Ingresos Anuales</label>
-          <input type="text" class="form-control" id="ingresoAnualCliente">
-        </div>
-        <div class="mb-3">
-          <label for="categoriaCalculada" class="form-label">Categoría Calculada</label>
-          <input type="text" id="categoriaCalculada" class="form-control" placeholder="">
-        </div>
-      </form>
-      <form>
-          <button id="btnCalcular" type="submit" class="btn btn-primary">Calcular</button>
-      </form>
-    </section>
-    <section id="grillaMonotributo">
-        <div class="container">
-            <div class="row">
-              <div class="col">
-                <h3>Categ.</h3>
-                <p class="categoria">A</p>
-                <P class="categoria">B</P>
-                <p class="categoria">C</p>
-                <p class="categoria">D</p>
-                <p class="categoria">E</p>
-                <P class="categoria">F</P>
-                <p class="categoria">G</p>
-                <p class="categoria">H</p>
-                <P class="categoria">I</P>
-                <p class="categoria">J</p>
-                <p class="categoria">K</p>
-              </div>
-              <div class="col">
-                <h3>Ingresos Brutos</h3>
-                <p class="ingresoCategoria">$ 466.201</p>
-                <P class="ingresoCategoria">$ 693.002</P>
-                <p class="ingresoCategoria">$ 970.203</p>
-                <p class="ingresoCategoria">$ 1.335.604</p>
-                <p class="ingresoCategoria">$ 1.764.006</p>
-                <P class="ingresoCategoria">$ 2.205.007</P>
-                <p class="ingresoCategoria">$ 2.646.009</p>
-                <p class="ingresoCategoria">$ 3.276.011</p>
-                <P class="ingresoCategoria">$ 3.666.612</P>
-                <p class="ingresoCategoria">$ 4.202.114</p>
-                <p class="ingresoCategoria">$ 4.662.015</p>
-              </div>
-            </div>
+  <h2>
+    CALCULADORA MONOTRIBUTO
+  </h2>    
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mb32 banner">
+    <section id="cargaDeDatos">
+      <div class="d-inline-flex align-items-baseline" style="display: flex;">
+          <div class="ANumSection">
+              <h3 style="margin-top: 0px;">
+                  <b>1</b>
+              </h3>
           </div>
-    </section>
-    <button id="boton" class="btn btn-secondary" onclick="pintarGrilla();">Colorear Grilla</button>
+            <h3  class="subtitulo" style="margin-top: 10px;">
+              <b>Cargá los datos del Cliente</b> 
+              <span style="font-size: 1rem">(los campos con asterisco son obligatorios)</span>
+            </h3>
+      </div>         
+        <form id="formCliente">
+          <div class="mb-3">
+            <label for="razonsocial" class="form-label">*Razón Social</label>
+            <input type="text" class="form-control" id="razonsocial">
+          </div>          
+          <div class="mb-3">
+            <label for="cuit" class="form-label">CUIT</label>
+            <input type="text" class="form-control" id="cuit">
+          </div>
+          <div>
+            <button id="btnRecordarCliente" class="btn btn-primary ABtn" type="submit">
+              Recordar Cliente
+            </button>
+          </div>        
+        </form>
+      </section>
+      <div id="clippy">
+        <button id="btnShowClippy" type="submit" class="btn btn-primary ABtn">
+          Obten Ayuda
+        </button>
+        <button id="btnHideClippy" type="submit" class="btn btn-primary ABtn">
+          Ocultar Ayuda
+        </button>
+      </div>  
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mb32 banner">
+      <section id="cargaDeDatos">
+        <div class="d-inline-flex align-items-baseline" style="display: flex;">
+          <div class="ANumSection">
+              <h3 style="margin-top: 0px;"><b>2</b></h3>
+          </div>
+          <h3  class="subtitulo" style="margin-top: 10px;">
+            <b>Cargá los datos para Recategorizar</b> 
+            <span style="font-size: 1rem">(los campos con asterisco son obligatorios)</span>
+          </h3>
+        </div> 
+        <form id="formCalculo">
+          <div class="mb-3">
+            <label for="" class="form-label">*Actividad</label>
+              <select id="comboActividad" class="form-select" aria-label="Default select example">
+                <option value="0" selected>Selecciona una opción</option>
+                <option value="1">Venta de cosas muebles</option>
+                <option value="2">Locaciones y/o servicios</option>                
+              </select>
+          </div>
+          <div class="mb-3">
+            <label for="ingresoAnualCliente" class="form-label">*Ingresos brutos devengados ($)</label>
+            <input type="text" class="form-control" id="ingresoAnualCliente">
+          </div>
+          <div class="mb-3">
+            <label for="supAfectada" class="form-label">Superficie afectada (m2)</label>
+            <input type="text" class="form-control" id="supAfectada">
+          </div>
+          <div class="mb-3">
+            <label for="energia" class="form-label">Energía eléctrica consumida (KW)</label>
+            <input type="text" class="form-control" id="energia">
+          </div>
+          <div class="mb-3">
+            <label for="alquileres" class="form-label">Alquileres devengados ($)</label>
+            <input type="text" class="form-control" id="alquileres">
+          </div>
+          <div class="mb-3">
+            <fieldset disabled>
+              <label for="precioMaximo" class="form-label">Precio unitario máximo ($)</label>
+              <input type="text" class="form-control" id="precioMaximo">
+            </fieldset>
+          </div>                  
+          <div class="btnF2">
+            <button id="btnCalcular" type="submit" class="btn btn-primary ABtn">Calcular</button>
+            <button id="btnLimpiar" type="submit" class="btn btn-primary ABtn">Limpiar</button>
+          </div>        
+          <div class="divLink">
+            <span class="ver-tabla">
+              &nbsp;&nbsp;
+                <a class= "link" href="https://www.afip.gob.ar/monotributo/categorias.asp" target="_blank">
+                    Ver tabla
+                </a>
+            </span>
+          </div>
+        </form>      
+      </section>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <section class="SeccionTres">
+        <div class=" d-inline-flex align-items-baseline mb20" style="display: flex;">
+            <div class="ANumSection">
+                <h3 style="margin-top: 0px;">
+                  <b>3</b>
+                </h3>
+            </div>
+            <h3 style="margin-top: 10px;"><b>Resultados obtenidos:</b></h3>
+        </div>
+        <h3 style="margin-top: 10px;">
+          <b>Monotributo. Recategorización</b>
+        </h3>
+        <div class="">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 titleCategoria">
+                    <div class="mensajeResult mb16">
+                        <span>De acuerdo con los parámetros ingresados, le corresponde:<br>
+                        </span><strong><span class="categoria">Categoría</span>
+                            <span id="categoria" class="categoria">.</span></strong>
+                            
+                    </div>
+                    <div class="mensajeResult">
+                        <span id="avisoCategoria"><ul></ul></span>
+                    </div>
+                    <div id="juridica">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin: inherit;">
+                <div class="resultadosTabla mb24">
+                    <label class="ALabel" style="padding-left: 0px;">
+                        IMPUESTO INTEGRADO
+                    </label>
+                    <div class="">
+                        <span id="cuota" disabled="disabled">$ 0,00</span>                        
+                    </div>
+                </div>
+                <div class="resultadosTabla mb24">
+                  <label class="ALabel" style="padding-left: 0px;">
+                      SIPA
+                  </label>
+                  <div class="">
+                      <span id="sipa" disabled="disabled">$ 0,00</span>                        
+                  </div>
+              </div>                
+                <div class="resultadosTabla mb24">
+                    <label class="ALabel" style="padding-left: 0px;">
+                        APORTE AUTÓNOMOS/OBRA SOCIAL
+                    </label>
+                    <div class="">
+                        <span id="aporte" disabled="disabled">$ 0,00</span>
+                        
+                    </div>
+                </div>
+                <div class="resultadosTabla mb24">
+                    <label class="ALabel" style="padding-left: 0px;">
+                        TOTAL
+                    </label>
+                    <div class="">
+                        <span id="total" disabled="disabled">$ 0,00</span>                        
+                    </div>
+                </div>
+                <div class="resultadosTabla mb24">
+                    <div class="">
+                        <span id="aclaracion">Si cumple las condiciones para quedar exceptuado del ingreso del componente impositivo -según art. 11, 5° párrafo de la ley del gravamen- ver importe en tabla</span>
+                        <span class="ver-tabla">&nbsp;&nbsp;
+                          <a href="https://www.afip.gob.ar/monotributo/categorias.asp" target="_blank">
+                            Ver tabla</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+      <div class="btnDiv">
+        <button id="btnImprimir" type="submit" class="btn btn-primary ABtn">Imprimir</button>
+        <!-- <input type="button" id="btnImprimir" value="Imprimir" class="ABtn btn no-print"> -->
+      </div>
+    </div>
+  </div>    
     <section id="usuarios">
-        <!-- usuarios habilitados -->
+    <!-- usuarios habilitados -->
     </section>
-      <!-- Bootstrap -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-      <!-- Toastify -->
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-      <!-- Luxon -->
-      <script src="https://cdn.jsdelivr.net/npm/luxon@2.4.0/build/global/luxon.min.js"></script>
-      <!-- Mi JS -->
-      <script src="monotributo.js"></script>
+    <!-- jQuery 1.7+ -->
+    <script src="jquery.1.7.min.js"></script>
+    <!-- Clippy.js -->
+    <script src="../EntregableGIT/build/clippy.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- Sweet Alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- Luxon -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.4.0/build/global/luxon.min.js"></script>
+    <!-- Mi JS -->
+    <script src="categorias.js"></script>
+    <script src="monotributo.js"></script>
 </body>
 </html>

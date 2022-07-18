@@ -1,130 +1,334 @@
-//CALCULO DE CATEGORIA
-let categoriaCliente;
-let ingresos = document.getElementById("ingresoAnualCliente");
-let botoncalcular = document.getElementById("btnCalcular");
+//Agente de Ayuda
+const botonVerClippy = document.getElementById("btnShowClippy");
+const botonOcultarClippy = document.getElementById("btnHideClippy");
+let agent;
 
-botoncalcular.addEventListener("click",calcularCategoria)
-
-document.getElementById("categoriaCalculada").value = categoriaCliente;
-
-function calcularCategoria(){      
-        if((parseInt(ingresos.value)) != 0){   
-            switch (true) {
-                case ((parseInt(ingresos.value)) < 466201):
-                    console.log("Categoría A");
-                    document.getElementById("categoriaCalculada").value = "A";                                                       
-                    alert   ("Categ A"); 
-                    return categoriaCliente = "A";     
-                    break;
-                case (466202 < (parseInt(ingresos.value)))&&((parseInt(ingresos.value)) < 693002):                
-                        console.log("Categoría B");
-                        document.getElementById("categoriaCalculada").value = "B";
-                        alert   ("Categ B");  
-                        return categoriaCliente = "B";                                                
-                        break;
-                case (693003 < (parseInt(ingresos.value)))&&((parseInt(ingresos.value)) < 970203): 
-                    console.log("Categoría C");
-                    document.getElementById("categoriaCalculada").value = "C";                                     
-                    alert   ("Categ C");  
-                    return categoriaCliente = "C";   
-                    break;
-                default:                    
-                    document.getElementById("categoriaCalculada").value = "Fuera";                                       
-                    console.log("Fuera de Monotributo");       
-                    alert   ("Fuera de Monotributo");  
-                    return categoriaCliente = "'Fuera Monotributo'";  
-                    break;
-            }  
-        } else {
-            document.getElementById("categoriaCalculada").value = "No Calculado";
-            alert("Ingresar un valor");       
-            return categoriaCliente = "'No Calculado'";                                 
-        };        
-    };
-
-//CARGA DE CLIENTES
-
-// class ClienteNuevo {
-//     constructor (razonSocial,direccion,cuit,ingresoAnual,categoriaClase){
-//         this.razonSocial=razonSocial.toUpperCase();
-//         this.direccion=direccion.toUpperCase();
-//         this.cuit=cuit;
-//         this.ingresoAnual=ingresoAnual;
-//         this.categoriaClase=categoriaClase;
-//     }
-//     mostrarCliente=()=>console.log("Razon Social: "+this.razonSocial+
-//                                     " direccion:"+this.direccion+
-//                                     " CUIT:"+this.cuit+
-//                                     " Ingreso Anual:"+this.ingresoAnual+
-//                                     " Categoria:"+this.categoriaClase);
-// }
-
-// //array
-// const clientes = [];
-
-// for (let i = 1; i < 2; i++){
-//     alert("podrá ingresar "+ (2-i) +" clientes");
-//     clientes.push(new ClienteNuevo(prompt("Razón Social"), prompt("Direccion"),prompt("CUIT"),calcularCategoria(),categoriaCliente));    
-// }
-
-// clientes.forEach((cliente)=>{alert("Se agregó " +cliente.razonSocial+" - CUIT: "+cliente.cuit+" que según ingresos anuales le corresponde la categoría de monotributo: '"+cliente.categoriaClase+"'")});
-
-
-// for (const cliente of clientes)
-// cliente.mostrarCliente();
-
-//calcularCategoria();
-
-//getelementby...
-let grilla=document.getElementById("grillaMonotributo");
-let titulo=document.getElementById("titulo");
-let categorias = document.getElementsByClassName("categoria");
-let ingresosCategoria = document.getElementsByClassName("ingresoCategoria");
-let boton=document.getElementById("boton");
-
-//para pintar la grilla
-function pintarGrilla(){
-    if (boton.innerText=="Colorear Grilla") {
-    grilla.style.background="black";
-    titulo.style.color="red";
-    for(const categoria of categorias){
-        categoria.style.color="white";    
-    }
-    for(const ingreso of ingresosCategoria){
-        ingreso.style.color="white";    
-    }
-    boton.innerText="Despintar"   
-} else {
-    grilla.style.background="white";
-    titulo.style.color="black";
-    for(const categoria of categorias){
-        categoria.style.color="black";    
-    }
-    for(const ingreso of ingresosCategoria){
-        ingreso.style.color="black";    
-    }
-    boton.innerText="Colorear Grilla"  
-} 
+botonVerClippy.onclick=()=>{    
+    if ((agent == null)||(agent == undefined)) {
+    clippy.load('Clippy',a => {
+        agent = a;
+        agent.show();    
+        agent.speak('¡Hola!');    
+        agent.speak('Completa los Datos Obligatorios del Formulario y luego presioná el boton "Calcular"');     
+})};  
 }
 
-//Storage
+botonOcultarClippy.onclick=()=>{
+if ((agent != null)||(agent != undefined)) {
+    agent.hide();    
+    agent = null;
+}
+}
+
+//Paso 1
+//Datos Razon Social
 let clienteSeteado = localStorage.getItem("cliente");
-if (cliente =null){
+
+if ((clienteSeteado == null)||(clienteSeteado == "")){
     clienteSeteado = "BEJERMAN"
 }
 document.getElementById("razonsocial").value = clienteSeteado;
+console.log(clienteSeteado);
 
-let inputRazonSocial = document.getElementById("razonsocial");
-let botonRecordar = document.getElementById("btnRecordarCliente");
+//Datos CUIT
+let cuitSeteado = localStorage.getItem("cuit");
 
-localStorage.setItem("cliente",clienteSeteado);
+if ((cuitSeteado == null)||(cuitSeteado == "")){
+    cuitSeteado = "30512823099"
+}
+
+document.getElementById("cuit").value = cuitSeteado;
+console.log(cuitSeteado);
+
+//Guardar Cliente y Validar CUIT
+const inputRazonSocial = document.getElementById("razonsocial");
+const inputCuit = document.getElementById("cuit");
+const botonRecordar = document.getElementById("btnRecordarCliente");
+
+
+localStorage.setItem("cliente",clienteSeteado);  
+localStorage.setItem("cuit",cuitSeteado);  
+
+let cuitvalidado = validarCuit (inputCuit.value);
 
 botonRecordar.onclick=()=>{
-    Swal.fire('Any fool can use a computer');
-    if(inputRazonSocial.value !==""){
-        clienteSeteado = inputRazonSocial.value                    
+    if((inputRazonSocial.value !== "")&&(inputCuit.value !== "")){
+        if(cuitvalidado == true){
+            console.log('valido');
+            cuitSeteado = inputCuit.value;  
+            clienteSeteado = inputRazonSocial.value;                
+            Swal.fire('Cliente Guardado');
+
+            
+        }else{
+            console.log('invalido');
+            Swal.fire('No se puede guardar CUIT invalido');
+        }
+
+        
+    }else{
+        Swal.fire('Completar todos los datos por favor');
+        }    
+        document.getElementById("formCliente").addEventListener("submit", function(event){
+                event.preventDefault()
+                });
+    localStorage.setItem("cliente",clienteSeteado);  
+    localStorage.setItem("cuit",cuitSeteado);  
+}       
+
+function validarCuit(cuit) {
+ 
+    if(cuit.length != 11) {
+        return false;        
     }
-    localStorage.setItem("cliente",clienteSeteado);    
+
+    var acumulado= 0;
+    var digitos= cuit.split("");
+    var digito= digitos.pop();
+
+    for(var i = 0; i < digitos.length; i++) {
+        acumulado += digitos[9 - i] * (2 + (i % 6));
+    }
+
+    var verif = 11 - (acumulado % 11);
+    if(verif == 11) {
+        verif = 0;
+    } else if(verif == 10) {
+        verif = 9;
+    }
+
+    return digito == verif;
+}
+
+//Paso 2
+//CALCULO DE CATEGORIA
+const comboActividad = document.getElementById("comboActividad");
+const categoriamostrada = document.getElementById("categoria");
+const cuotamostrada = document.getElementById("cuota");
+const sipamostrada = document.getElementById("sipa");
+const aportemostrada = document.getElementById("aporte");
+const totalmostrada = document.getElementById("total");
+const preciomaxmostrada = document.getElementById("precioMaximo");
+
+class Categoria{
+    constructor(objLit){        
+        this.categ=objLit.categ;
+        this.ingresos=objLit.ingresos;
+        this.superficie=objLit.superficie;
+        this.energia=objLit.energia;
+        this.alquiler=objLit.alquiler;
+        this.impuesto=objLit.impuesto;
+        this.sipa=objLit.sipa;
+        this.obrasocial=objLit.obrasocial;
+        this.total=objLit.total;
+    }
+    //Metodo deberia completar el HTML
+    mostrarInfo(){
+        categoriamostrada.innerText= this.categ;
+        cuotamostrada.innerText="$ " +this.impuesto;
+        sipamostrada.innerText="$ " +this.sipa;
+        aportemostrada.innerText="$ "+this.obrasocial;
+        totalmostrada.innerText="$ "+this.total;
+    }
+}
+
+const objbienes=[];
+const objservicios=[];
+
+for(const categoria of categoriasbienes){
+    objbienes.push(new Categoria(categoria));
+};
+
+for(const categoria of categoriasservicio){
+    objservicios.push(new Categoria(categoria));
+};
+
+
+//Funcion para Buscar la Categoría según Ingresos
+function buscarCategorias(actividad,parametro){
+    let encontrado=actividad.find((param)=>param.ingresos>=parametro);    
+    return encontrado;
+}
+
+function buscarCategoriasxIng(actividad,parametro){
+    let encontrado=actividad.find((param)=>param.ingresos>=parametro);    
+    return encontrado;
+}
+
+function buscarCategoriasxSup(actividad,parametro){
+    let encontrado=actividad.find((param)=>param.superficie>=parametro);    
+    return encontrado;
+}
+
+function buscarCategoriasxEnergia(actividad,parametro){
+    let encontrado=actividad.find((param)=>param.energia>=parametro);    
+    return encontrado;
+}
+
+function buscarCategoriasxAlquiler(actividad,parametro){
+    let encontrado=actividad.find((param)=>param.alquiler>=parametro);    
+    return encontrado;
+}
+const ingresosContribuyente= document.getElementById("ingresoAnualCliente");
+const superficieContribuyente= document.getElementById("supAfectada");
+const energiaContribuyente= document.getElementById("energia");
+const alquileresContribuyente= document.getElementById("alquileres");
+const botoncalcular = document.getElementById("btnCalcular");
+const botonlimpiar = document.getElementById("btnLimpiar");
+const selectElement = document.querySelector('#comboActividad');
+var seleccionado;
+
+selectElement.addEventListener('change', (event) => {
+    seleccionado = event.target.value;    
+    
+    if(seleccionado==1){
+        preciomaxmostrada.value= 49646.21;
+        console.log("49646.21");
+    }
+    else {
+        preciomaxmostrada.value= "";
+        console.log("0.00");
+    };   
+
+    return seleccionado;
+});
+
+const array1 = [];
+
+botoncalcular.onclick=()=>{   
+    //Bienes
+    if ((seleccionado==1)&&(ingresosContribuyente.value>0)){  
+
+        if((ingresosContribuyente.value>6019594.89)||(superficieContribuyente.value>200)||(superficieContribuyente.value>200)||(energiaContribuyente.value>20000)||(alquileresContribuyente.value>533822.27)){
+            Swal.fire("Fuera del Monotributo excede los parametros del regimen");
+            categoriamostrada.innerText= "";
+            cuotamostrada.innerText="$ 0.00";
+            sipamostrada.innerText="$ 0.00";
+            aportemostrada.innerText="$ 0.00";
+            totalmostrada.innerText="$ 0.00";
+            array1.pop();
+            document.getElementById("formCalculo").addEventListener("submit", function(event){
+                event.preventDefault()});   
+        }else{
+
+        let resultado1=buscarCategoriasxIng(objbienes,ingresosContribuyente.value);
+        array1.push(resultado1.ingresos);
+        if(superficieContribuyente.value!=0){
+                let resultado2=buscarCategoriasxSup(objbienes,superficieContribuyente.value);
+                array1.push(resultado2.ingresos);            
+            }       
+        if(energiaContribuyente.value!=0){
+                let resultado3=buscarCategoriasxEnergia(objbienes,energiaContribuyente.value);
+                array1.push(resultado3.ingresos);            
+            }    
+        if(alquileresContribuyente.value!=0){
+                let resultado4=buscarCategoriasxAlquiler(objbienes,alquileresContribuyente.value);
+                array1.push(resultado4.ingresos);            
+            }    
+        let resultadoA1 = 0
+
+        for ( let numero of array1 ) {
+            if (resultadoA1 < numero)
+            resultadoA1 = numero;
+          }
+        
+        let resultado=buscarCategorias(objbienes,resultadoA1);
+ 
+        console.log(array1);
+        console.log(resultado);
+
+            if(resultado == undefined){
+                Swal.fire("Fuera del Monotributo excede los parametros del regimen");
+            }else{
+                resultado.mostrarInfo(); 
+                Swal.fire("Exitoso");
+                array1.pop();
+            }
+            document.getElementById("formCalculo").addEventListener("submit", function(event){
+                event.preventDefault()});        
+            }
+        }
+
+    //Servicios
+
+    else if((seleccionado==2)&&(ingresosContribuyente.value>0)){      
+
+                if((ingresosContribuyente.value>4229985.60)||(superficieContribuyente.value>200)||(superficieContribuyente.value>200)||(energiaContribuyente.value>20000)||(alquileresContribuyente.value>533822.27)){
+            Swal.fire("Fuera del Monotributo excede los parametros del regimen");
+            categoriamostrada.innerText= "";
+            cuotamostrada.innerText="$ 0.00";
+            sipamostrada.innerText="$ 0.00";
+            aportemostrada.innerText="$ 0.00";
+            totalmostrada.innerText="$ 0.00";
+            array1.pop();
+            document.getElementById("formCalculo").addEventListener("submit", function(event){
+                event.preventDefault()});   
+        }else{
+
+        let resultado1=buscarCategoriasxIng(objservicios,ingresosContribuyente.value);
+        array1.push(resultado1.ingresos);
+        if(superficieContribuyente.value!=0){
+                let resultado2=buscarCategoriasxSup(objservicios,superficieContribuyente.value);
+                array1.push(resultado2.ingresos);            
+            }       
+        if(energiaContribuyente.value!=0){
+                let resultado3=buscarCategoriasxEnergia(objservicios,energiaContribuyente.value);
+                array1.push(resultado3.ingresos);            
+            }    
+        if(alquileresContribuyente.value!=0){
+                let resultado4=buscarCategoriasxAlquiler(objservicios,alquileresContribuyente.value);
+                array1.push(resultado4.ingresos);            
+            }    
+        let resultadoA1 = 0
+
+        for ( let numero of array1 ) {
+            if (resultadoA1 < numero)
+            resultadoA1 = numero;
+          }
+        
+        let resultado=buscarCategorias(objservicios,resultadoA1);
+ 
+        console.log(array1);
+        console.log(resultado);
+
+            if(resultado == undefined){
+                Swal.fire("Fuera del Monotributo excede los parametros del regimen");
+            }else{
+                resultado.mostrarInfo(); 
+                Swal.fire("Exitoso");
+                array1.pop();
+            }
+            document.getElementById("formCalculo").addEventListener("submit", function(event){
+                event.preventDefault()});        
+            }
+    }
+    else{
+        Swal.fire("Complete los campos Obligatorios");
+        document.getElementById("formCalculo").addEventListener("submit", function(event){
+            event.preventDefault()});   
+    }    
+    };
+    
+    botonlimpiar.onclick=()=>{
+        preciomaxmostrada.value="";
+        ingresosContribuyente.value="";
+        superficieContribuyente.value="";
+        selectElement.value=0;
+        categoriamostrada.innerText= "";
+        cuotamostrada.innerText="$ 0.00";
+        sipamostrada.innerText="$ 0.00";
+        aportemostrada.innerText="$ 0.00";
+        totalmostrada.innerText="$ 0.00";
+        array1.pop();
+    }
+    
+
+//Imprimir
+let botonImprimir=document.getElementById("btnImprimir");
+
+botonImprimir.onclick=()=>{
+    window.print();
+    console.log("Imprimido")
 }
 
 //GETJSON
@@ -158,37 +362,3 @@ function obtenerJson(){
 }
 
 obtenerJson();
-
-
-
-
-
-
-
-
-// if(modo==null){
-//     modo="light"
-// }
-// let principal=document.getElementById("principal");
-// let boton=document.getElementById("btnRecordarCliente");
-// document.body.className=modo;
-// principal.className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center "+modo;
-
-// localStorage.setItem("clienteFijo",modo);
-
-// boton.onclick=()=>{
-//     if(modo=="light"){
-//         document.body.className="dark";
-//         principal.className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center dark";
-//         modo="dark";
-//         boton.innerText="Light Mode";
-//     }else{
-//         document.body.className="light";
-//         principal.className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center light";
-//         modo="light";
-//         boton.innerText="Dark Mode";
-//     }
-//     localStorage.setItem("modo",modo);
-// }
-
-

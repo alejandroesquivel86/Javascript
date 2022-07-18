@@ -1,16 +1,94 @@
-#titulo{
+h2{
     font-size: xx-large;
     font-family: Roboto;
     text-align: center;
 }
 
-#subtitulo{
+h3{
+    margin-top: 10px;
+}
+
+.subtitulo{
     font-size: large;
     font-family: Roboto;
     text-align: left;
     text-decoration: underline;
 }
 
-#cargaCliente{
-    margin: 40px;
+#cargaDeDatos{
+    padding: 16px 17px 16px 16px;
+}
+
+.ANumSection {
+    font-family:Raleway;
+    font-size: large;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    background-color:#a2b0e2 ;
+    border-radius: 100%;
+    color:#263057;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SeccionTres {
+    padding: 16px 17px 16px 16px;
+    height: fit-content;
+    background-color: #ececec;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px 0px #00000040;
+    color: #263057;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    ;
+}
+
+label {
+    font-family:Raleway;
+}
+.ver-tabla{
+    color: #337ab7;
+}
+
+.divCatCalculada{
+    margin-bottom: 15px;
+}
+
+.btnF2{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+
+.divLink{
+    min-width: 100%;    
+    text-align: center;
+}    
+
+.ABtn {
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 44px;
+    background-color: #24378f;
+    border: 0px;
+    border-radius: 24px;
+    color: #fff;
+    font-weight: 700;
+    min-width: auto;
+    margin-left: 12px;
+}
+
+.btnDiv{
+    margin-top: 10px;
+}
+
+.mb24 {
+    margin-bottom: 24px;
+}
+.resultadosTabla {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
