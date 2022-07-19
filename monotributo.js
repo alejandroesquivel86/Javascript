@@ -1,25 +1,4 @@
 //Agente de Ayuda
-const botonVerClippy = document.getElementById("btnShowClippy");
-const botonOcultarClippy = document.getElementById("btnHideClippy");
-let agent;
-
-botonVerClippy.onclick=()=>{    
-    if ((agent == null)||(agent == undefined)) {
-    clippy.load('Clippy',a => {
-        agent = a;
-        agent.show();    
-        agent.speak('¡Hola!');    
-        agent.speak('Completa los Datos Obligatorios del Formulario y luego presioná el boton "Calcular"');     
-})};  
-}
-
-botonOcultarClippy.onclick=()=>{
-if ((agent != null)||(agent != undefined)) {
-    agent.hide();    
-    agent = null;
-}
-}
-
 //Paso 1
 //Datos Razon Social
 let clienteSeteado = localStorage.getItem("cliente");
